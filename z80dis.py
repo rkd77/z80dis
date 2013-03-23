@@ -1839,7 +1839,7 @@ opcodes_FDCB = (
 code = array.array('B')
 
 label = [False] * 65536
-db = [False] * 65536
+defb = [False] * 65536
 
 def read_data(begin, f):
 	global code
@@ -1856,7 +1856,7 @@ def read_data(begin, f):
 	return last - 1
 
 def process(begin, end, which):
-	global current_opcode_table, second, label, db
+	global current_opcode_table, second, label, defb
 
 	current_opcode_table = opcodes_main
 	second = which
@@ -1865,8 +1865,8 @@ def process(begin, end, which):
 		if second:
 			if label[PC]:
 				print_label(PC)
-		if db[PC]:
-			increment, text = print_db(PC)
+		if defb[PC]:
+			increment, text = print_defb(PC)
 			print_text(PC, text)
 			PC += increment
 			continue
@@ -1874,13 +1874,13 @@ def process(begin, end, which):
 		print_text(PC, text)
 		PC += increment
 
-def print_db(PC):
+def print_defb(PC):
 	global second
 
 	if not second:
 		return 1, ''
 	b = get_byte(PC)
-	return 1, "db %s" % hex_or_decimal(b)
+	return 1, "defb %s" % hex_or_decimal(b)
 
 def print_text(PC, text):
 	global second, outfile, show_address
@@ -2110,8 +2110,8 @@ func = (
 current_opcode_table = opcodes_main
 dis = 0
 
-def get_db(text):
-	global db
+def get_defb(text):
+	global defb
 
 	#print text
 	for pairs in text.split(','):
@@ -2128,7 +2128,7 @@ def get_db(text):
 		if end > 65535:
 			end = 65535
 		for i in xrange(start, end+1):
-			db[i] = True
+			defb[i] = True
 
 def main(config):
 	global outfile, show_address
@@ -2146,7 +2146,7 @@ def main(config):
 	else:
 		outfile = open(config["output"], "rw")
 	if config["binary"]:
-		get_db(config["binary"])
+		get_defb(config["binary"])
 
 	if config["comments"]:
 		show_address = True
