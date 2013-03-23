@@ -7,7 +7,7 @@ z80dis.py [-b binary] [-c] [-i inputfilename] [-o outputfilename] [-s start]
 
 Parameters for -b are ranges of addresses separated by commas. For example:
 -b 25000-30000,35000-36789
-These ranges will be assembled as (for example):
+These ranges will be disassembled as (for example):
 	db 10
 	db 23
 	db 34
