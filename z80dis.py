@@ -1863,7 +1863,6 @@ def process(begin, end, which):
 	PC = begin
 	while PC <= end:
 		if second:
-			#sys.stderr.write("PC = %d label[PC] = %d\n" % (PC, label[PC]))
 			if label[PC]:
 				print_label(PC)
 		if db[PC]:
