@@ -1,0 +1,23 @@
+z80dis.py is a Z80 disassembler.
+
+It produces the assembler code for z88dk's z80asm.
+Usage:
+
+z80dis.py [-b binary] [-c] [-i inputfilename] [-o outputfilename] [-s start]
+
+Parameters for -b are ranges of addresses separated by commas. For example:
+-b 25000-30000,35000-36789
+These ranges will be assembled as (for example):
+	db 10
+	db 23
+	db 34
+etc.
+-c - show addresses of instructions as comments. For example:
+	ld a, 52          ; 34567
+	inc a             ; 34569
+
+-i inputfilename - filename with binary code to disassemble. If -i is ommitted, data is read from stdin
+-o outputfilename - filename for output. If -o is ommitted, output is written to stdout
+-s start - start address (org). Default is 32768
+
+The code is in the alpha stage.
